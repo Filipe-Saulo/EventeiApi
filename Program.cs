@@ -1,5 +1,7 @@
 using Api.Configurations;
+using Api.IRepository;
 using Api.Middleware;
+using Api.Repository;
 using Asp.Versioning;
 using Eventei_Api.Models.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -44,7 +46,7 @@ builder.Services.AddIdentityCore<User>()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => {
-    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Bike Facil API", Version = "v1" });
+    options.SwaggerDoc("v1", new OpenApiInfo { Title = "Eventei", Version = "v1" });
     options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
     {
         Description = @"JWT Authorization header using the Bearer scheme. 
@@ -105,9 +107,7 @@ builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration
 
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
 
-// builder.Services.AddScoped<ICountriesRepository, CountriesRepository>();
-// builder.Services.AddScoped<IHotelsRepository, HotelsRepository>();
-//builder.Services.AddScoped<IAuthManager, AuthManager>();
+builder.Services.AddScoped< IAuthManagerRepository, AuthManagerRepository>();
 
 builder.Services.AddAuthentication().AddJwtBearer();
 

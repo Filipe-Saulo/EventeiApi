@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using Api.Models.Dto;
+using AutoMapper;
+using Eventei_Api.Models.Data;
 using Microsoft.EntityFrameworkCore.Migrations;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using static System.Collections.Specialized.BitVector32;
@@ -9,7 +11,7 @@ namespace Api.Configurations
     {
         public MapperInitializer()
         {
-        
+            CreateMap<ApiUserDto, User>().ReverseMap();
 
         }
     }
