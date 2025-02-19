@@ -106,6 +106,7 @@ apiVersioningBuilder.AddApiExplorer(
 builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
 
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 builder.Services.AddScoped< IAuthManagerRepository, AuthManagerRepository>();
 
