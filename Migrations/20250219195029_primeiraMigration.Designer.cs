@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20250212200247_primeiraMigration")]
+    [Migration("20250219195029_primeiraMigration")]
     partial class primeiraMigration
     {
         /// <inheritdoc />
@@ -39,12 +39,26 @@ namespace Api.Migrations
                         .HasColumnType("VARCHAR(500)")
                         .HasColumnName("comentario");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnName("created_at");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<DateTime>("CreatedAt"));
+
                     b.Property<DateTime>("DataComentario")
                         .HasColumnType("TIMESTAMP")
                         .HasColumnName("data_comentario");
 
                     b.Property<int>("EventoId")
                         .HasColumnType("INT(11)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnName("updated_at");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlComputedColumn(b.Property<DateTime>("UpdatedAt"));
 
                     b.Property<string>("UsuarioId")
                         .HasColumnType("varchar(255)");
@@ -73,6 +87,13 @@ namespace Api.Migrations
                         .HasColumnType("VARCHAR(100)")
                         .HasColumnName("category");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnName("created_at");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<DateTime>("CreatedAt"));
+
                     b.Property<DateTime>("DateEvento")
                         .HasColumnType("TIMESTAMP")
                         .HasColumnName("date_evento");
@@ -91,6 +112,13 @@ namespace Api.Migrations
                     b.Property<int>("TicketsQuantity")
                         .HasColumnType("INT(11)")
                         .HasColumnName("tickets_quantity");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnName("updated_at");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlComputedColumn(b.Property<DateTime>("UpdatedAt"));
 
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
@@ -117,6 +145,13 @@ namespace Api.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("InscricaoEventoId"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnName("created_at");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<DateTime>("CreatedAt"));
+
                     b.Property<DateTime>("DataInscricao")
                         .HasColumnType("TIMESTAMP")
                         .HasColumnName("data_inscricao");
@@ -127,6 +162,13 @@ namespace Api.Migrations
                     b.Property<bool>("Participou")
                         .HasColumnType("tinyint(1)")
                         .HasColumnName("participou");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnName("updated_at");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlComputedColumn(b.Property<DateTime>("UpdatedAt"));
 
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
@@ -149,6 +191,13 @@ namespace Api.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("PhotoId"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnName("created_at");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<DateTime>("CreatedAt"));
+
                     b.Property<int>("EventoId")
                         .HasColumnType("INT(11)");
 
@@ -156,9 +205,16 @@ namespace Api.Migrations
                         .HasColumnType("tinyint(1)")
                         .HasColumnName("pos_evento");
 
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("TIMESTAMP")
+                        .HasColumnName("updated_at");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlComputedColumn(b.Property<DateTime>("UpdatedAt"));
+
                     b.Property<string>("UrlPhoto")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(500)")
+                        .HasColumnType("VARCHAR(50000)")
                         .HasColumnName("url_photo");
 
                     b.HasKey("PhotoId");
@@ -277,13 +333,13 @@ namespace Api.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e297dbf6-994c-430e-a608-8c67bc6760d0",
+                            Id = "94ac5eee-1846-49cf-bc14-82c87b16ee8a",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "adba7561-0700-4491-b238-54aeeb10d70b",
+                            Id = "a761dd7f-e20f-40cf-9a7f-21c377637689",
                             Name = "User",
                             NormalizedName = "USER"
                         });

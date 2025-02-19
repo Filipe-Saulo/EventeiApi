@@ -13,6 +13,13 @@ namespace Api.Models.Data
         public string Comentario { get; set; }
         [Column("data_comentario", TypeName = "TIMESTAMP")]
         public DateTime DataComentario { get; set; }
+        [Column("created_at", TypeName = "TIMESTAMP")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedAt { get; set; }
+
+        [Column("updated_at", TypeName = "TIMESTAMP")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime UpdatedAt { get; set; }
 
         // Chaves estrangeiras
         [ForeignKey("User")]

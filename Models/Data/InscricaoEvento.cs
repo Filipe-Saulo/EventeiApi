@@ -12,6 +12,13 @@ namespace Api.Models.Data
         public DateTime DataInscricao { get; set; }
         [Column("participou")]
         public bool Participou { get; set; } = false; // false = Inscrito, true = Já participou
+        [Column("created_at", TypeName = "TIMESTAMP")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedAt { get; set; }
+
+        [Column("updated_at", TypeName = "TIMESTAMP")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime UpdatedAt { get; set; }
 
         // Chaves estrangeiras
         [ForeignKey("User")]

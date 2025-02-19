@@ -220,6 +220,10 @@ namespace Api.Migrations
                     category = table.Column<string>(type: "VARCHAR(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     tickets_quantity = table.Column<int>(type: "INT(11)", nullable: false),
+                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    updated_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -243,6 +247,10 @@ namespace Api.Migrations
                     comentario = table.Column<string>(type: "VARCHAR(500)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     data_comentario = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
+                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    updated_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn),
                     UsuarioId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     EventoId = table.Column<int>(type: "INT(11)", nullable: false)
@@ -272,6 +280,10 @@ namespace Api.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     data_inscricao = table.Column<DateTime>(type: "TIMESTAMP", nullable: false),
                     participou = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    updated_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     EventoId = table.Column<int>(type: "INT(11)", nullable: false)
@@ -299,9 +311,13 @@ namespace Api.Migrations
                 {
                     photo_id = table.Column<int>(type: "INT(11)", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    url_photo = table.Column<string>(type: "VARCHAR(500)", nullable: false)
+                    url_photo = table.Column<string>(type: "VARCHAR(50000)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     pos_evento = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    created_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    updated_at = table.Column<DateTime>(type: "TIMESTAMP", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.ComputedColumn),
                     EventoId = table.Column<int>(type: "INT(11)", nullable: false)
                 },
                 constraints: table =>
@@ -321,8 +337,8 @@ namespace Api.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "adba7561-0700-4491-b238-54aeeb10d70b", null, "User", "USER" },
-                    { "e297dbf6-994c-430e-a608-8c67bc6760d0", null, "Administrator", "ADMINISTRATOR" }
+                    { "94ac5eee-1846-49cf-bc14-82c87b16ee8a", null, "Administrator", "ADMINISTRATOR" },
+                    { "a761dd7f-e20f-40cf-9a7f-21c377637689", null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(

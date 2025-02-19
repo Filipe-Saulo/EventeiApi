@@ -26,6 +26,13 @@ namespace Api.Models.Data
 
         [Required, Column("tickets_quantity", TypeName = "INT(11)")]
         public int TicketsQuantity { get; set; }
+        [Column("created_at", TypeName = "TIMESTAMP")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedAt { get; set; }
+
+        [Column("updated_at", TypeName = "TIMESTAMP")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime UpdatedAt { get; set; }
 
         // Chave estrangeira (Usuário que criou o evento)
         [ForeignKey("User")]
