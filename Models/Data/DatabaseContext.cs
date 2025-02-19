@@ -1,5 +1,6 @@
 ﻿
 using Api.Configurations.Entities;
+using Api.Models.Data;
 using k8s.KubeConfigModels;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace Eventei_Api.Models.Data
         {
 
         }
+        public DbSet<Evento> Eventos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

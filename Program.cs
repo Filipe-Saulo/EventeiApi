@@ -108,7 +108,8 @@ builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-builder.Services.AddScoped< IAuthManagerRepository, AuthManagerRepository>();
+builder.Services.AddScoped<IAuthManagerRepository, AuthManagerRepository>();
+builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 
 builder.Services.AddAuthentication().AddJwtBearer();
 

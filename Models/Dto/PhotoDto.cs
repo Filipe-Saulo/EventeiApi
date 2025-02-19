@@ -7,4 +7,4 @@
         public bool PosEvento { get; set; }
     }
 }
-}
+

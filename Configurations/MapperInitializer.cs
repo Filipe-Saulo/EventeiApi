@@ -1,4 +1,5 @@
-﻿using Api.Models.Dto;
+﻿using Api.Models.Data;
+using Api.Models.Dto;
 using AutoMapper;
 using Eventei_Api.Models.Data;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -12,6 +13,15 @@ namespace Api.Configurations
         public MapperInitializer()
         {
             CreateMap<ApiUserDto, User>().ReverseMap();
+
+            CreateMap<EventoDto, Evento>().ReverseMap();
+            CreateMap<CreateEventoDto, Evento>()
+                .ForMember(dest => dest.Photos, opt => opt.MapFrom(src => src.Photos))
+                .ReverseMap();
+
+
+            CreateMap<PhotoDto, Photo>().ReverseMap();
+
 
         }
     }
