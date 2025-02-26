@@ -38,7 +38,7 @@ catch (Exception ex)
 }
 builder.Services.AddIdentityCore<User>()
     .AddRoles<IdentityRole>()
-    .AddTokenProvider<DataProtectorTokenProvider<User>>("Eventei Api")
+    .AddTokenProvider<DataProtectorTokenProvider<User>>("EventeiApi")
     .AddEntityFrameworkStores<DatabaseContext>()
     .AddDefaultTokenProviders();
 
