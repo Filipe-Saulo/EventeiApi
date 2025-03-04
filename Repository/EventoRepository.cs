@@ -20,10 +20,18 @@ namespace Api.Repository
 
         public async Task<List<Evento>> GetAllAsync()
         {
-            return await _context.Eventos
-                .Include(e => e.Photos)
-                .Include(e => e.Comentarios)
-                .ToListAsync();
+            try
+            {
+                return await _context.Evento
+                    .Include(e => e.Photos)
+                    .Include(e => e.Inscricoes)
+                    .Include(e => e.Comentarios)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {                
+                throw new ApplicationException("Erro ao buscar eventos.", ex);
+            }
         }
 
         public async Task<Evento> AddEventoComFotosAsync(CreateEventoDto createEventoDto)
@@ -44,7 +52,7 @@ namespace Api.Repository
             }
 
             
-            await _context.Eventos.AddAsync(evento);
+            await _context.Evento.AddAsync(evento);
             await _context.SaveChangesAsync();
 
             return evento; 

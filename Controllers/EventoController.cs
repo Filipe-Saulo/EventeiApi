@@ -30,7 +30,8 @@ namespace Api.Controllers
                 return NotFound("Nenhum evento encontrado.");
             }
 
-            return Ok(eventos);
+            var eventosDto = _mapper.Map<List<EventoDto>>(eventos);
+            return Ok(eventosDto);
         }
 
         [HttpPost]
@@ -41,10 +42,12 @@ namespace Api.Controllers
                 return BadRequest("Os dados do evento são inválidos.");
             }
 
-            // Chama o repositório para adicionar o evento com as fotos
+            
             var eventoSalvo = await _eventoRepository.AddEventoComFotosAsync(createEventoDto);
 
-            // Retorna o evento salvo com status Created
+            var eventoDto = _mapper.Map<EventoDto>(eventoSalvo);
+
+            
             return CreatedAtAction(nameof(GetAllEventos), new { id = eventoSalvo.EventoId }, eventoSalvo);
         }
 

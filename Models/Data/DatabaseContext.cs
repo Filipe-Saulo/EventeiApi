@@ -16,7 +16,7 @@ namespace Eventei_Api.Models.Data
         {
 
         }
-        public DbSet<Evento> Eventos { get; set; }
+        public DbSet<Evento> Evento { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
