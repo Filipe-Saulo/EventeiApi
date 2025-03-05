@@ -35,7 +35,7 @@ namespace Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<EventoDto>> CreateEvento([FromBody] CreateEventoDto createEventoDto)
+        public async Task<ActionResult<CreateEventoDto>> CreateEvento([FromBody] CreateEventoDto createEventoDto)
         {
             if (createEventoDto == null)
             {
@@ -43,12 +43,12 @@ namespace Api.Controllers
             }
 
             
-            var eventoSalvo = await _eventoRepository.AddEventoComFotosAsync(createEventoDto);
+            var eventoSalvo = await _eventoRepository.AddEventAsync(createEventoDto);
 
-            var eventoDto = _mapper.Map<EventoDto>(eventoSalvo);
+            var eventoDto = _mapper.Map<CreateEventoDto>(eventoSalvo);
 
             
-            return CreatedAtAction(nameof(GetAllEventos), new { id = eventoSalvo.EventoId }, eventoSalvo);
+            return CreatedAtAction(nameof(GetAllEventos), new { id = eventoSalvo.EventoId }, eventoDto);
         }
 
     }

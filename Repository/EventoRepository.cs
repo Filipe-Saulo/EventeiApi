@@ -34,7 +34,7 @@ namespace Api.Repository
             }
         }
 
-        public async Task<Evento> AddEventoComFotosAsync(CreateEventoDto createEventoDto)
+        public async Task<Evento> AddEventAsync(CreateEventoDto createEventoDto)
         {
             
             var evento = _mapper.Map<Evento>(createEventoDto);

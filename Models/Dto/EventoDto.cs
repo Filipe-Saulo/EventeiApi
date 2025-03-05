@@ -22,7 +22,7 @@
         public string Localization { get; set; }
         public string Category { get; set; }
         public int TicketsQuantity { get; set; }
-        public List<PhotoDto> Photos { get; set; }
+        public List<CreatePhotoDto> Photos { get; set; }
         
     }
 }

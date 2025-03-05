@@ -21,6 +21,7 @@ namespace Api.Configurations
 
 
             CreateMap<PhotoDto, Photo>().ReverseMap();
+            CreateMap<CreatePhotoDto, Photo>().ReverseMap();
 
 
         }

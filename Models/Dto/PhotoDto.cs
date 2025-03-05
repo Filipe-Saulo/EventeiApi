@@ -6,5 +6,12 @@
         public string UrlPhoto { get; set; }
         public bool PosEvento { get; set; }
     }
+
+    public class CreatePhotoDto {
+
+        public string UrlPhoto { get; set; }
+        public bool PosEvento { get; set; }
+
+    }
 }
 
