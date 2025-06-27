@@ -1,7 +1,7 @@
 using Api.Configurations;
-using Api.IRepository;
 using Api.Middleware;
-using Api.Repository;
+using Api.Repositories.IRepository;
+using Api.Repositories.Repository;
 using Asp.Versioning;
 using Eventei_Api.Models.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -108,7 +108,7 @@ builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration
 builder.Services.AddAutoMapper(typeof(MapperInitializer));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-builder.Services.AddScoped<IAuthManagerRepository, AuthManagerRepository>();
+builder.Services.AddScoped<IWebUserAccountRepository, WebUserAccountRepository>();
 builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 
 builder.Services.AddAuthentication().AddJwtBearer();

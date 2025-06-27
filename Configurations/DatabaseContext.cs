@@ -1,16 +1,18 @@
 ﻿
+
+
+
 using Api.Configurations.Entities;
 using Api.Models.Data;
-using k8s.KubeConfigModels;
+using Eventei_Api.Models.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-
-
-namespace Eventei_Api.Models.Data
+namespace Api.Configurations
 {
-    public class DatabaseContext : IdentityDbContext<User>
+    public class DatabaseContext : IdentityDbContext<User, IdentityRole, string>
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {

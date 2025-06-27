@@ -1,4 +1,4 @@
-﻿namespace Api.Models.Dto
+﻿namespace Api.Models.Dto.WebUserLogin
 {
     public class AuthResponseDto
     {

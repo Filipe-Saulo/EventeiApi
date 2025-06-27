@@ -1,5 +1,6 @@
 ﻿using Api.Models.Data;
 using Api.Models.Dto;
+using Api.Models.Dto.WebUserLogin;
 using AutoMapper;
 using Eventei_Api.Models.Data;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -12,7 +13,8 @@ namespace Api.Configurations
     {
         public MapperInitializer()
         {
-            CreateMap<ApiUserDto, User>().ReverseMap();
+            CreateMap<LoginDto, User>().ReverseMap();
+            CreateMap<WebCreateUserLoginDto, User>().ReverseMap();
 
             CreateMap<EventoDto, Evento>().ReverseMap();
             CreateMap<CreateEventoDto, Evento>()

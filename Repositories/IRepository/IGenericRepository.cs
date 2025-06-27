@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.OData.Results;
 
-namespace Api.IRepository
+namespace Api.Repositories.IRepository
 {
     public interface IGenericRepository<T> where T : class
     {

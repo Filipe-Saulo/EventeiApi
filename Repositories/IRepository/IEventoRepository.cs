@@ -1,7 +1,7 @@
 ﻿using Api.Models.Data;
 using Api.Models.Dto;
 
-namespace Api.IRepository
+namespace Api.Repositories.IRepository
 {
     public interface IEventoRepository
     {

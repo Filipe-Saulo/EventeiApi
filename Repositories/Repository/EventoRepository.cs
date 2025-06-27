@@ -1,11 +1,11 @@
-﻿using Api.IRepository;
+﻿using Api.Configurations;
 using Api.Models.Data;
 using Api.Models.Dto;
+using Api.Repositories.IRepository;
 using AutoMapper;
-using Eventei_Api.Models.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Repository
+namespace Api.Repositories.Repository
 {
     public class EventoRepository : IEventoRepository
     {
@@ -14,8 +14,8 @@ namespace Api.Repository
 
         public EventoRepository(DatabaseContext context, IMapper mapper)
         {
-            this._context = context;
-            this._mapper = mapper;
+            _context = context;
+            _mapper = mapper;
         }
 
         public async Task<List<Evento>> GetAllAsync()
@@ -29,33 +29,33 @@ namespace Api.Repository
                     .ToListAsync();
             }
             catch (Exception ex)
-            {                
+            {
                 throw new ApplicationException("Erro ao buscar eventos.", ex);
             }
         }
 
         public async Task<Evento> AddEventAsync(CreateEventoDto createEventoDto)
         {
-            
+
             var evento = _mapper.Map<Evento>(createEventoDto);
 
-            
+
             foreach (var photoDto in createEventoDto.Photos)
             {
                 var photo = new Photo
                 {
                     UrlPhoto = photoDto.UrlPhoto,
                     PosEvento = photoDto.PosEvento,
-                    EventoId = evento.EventoId 
+                    EventoId = evento.EventoId
                 };
                 evento.Photos.Add(photo);
             }
 
-            
+
             await _context.Evento.AddAsync(evento);
             await _context.SaveChangesAsync();
 
-            return evento; 
+            return evento;
         }
     }
 }

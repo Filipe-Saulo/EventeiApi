@@ -1,12 +1,12 @@
-﻿using Api.Exceptions;
-using Api.IRepository;
+﻿using Api.Configurations;
+using Api.Exceptions;
+using Api.Repositories.IRepository;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Eventei_Api.Models.Data;
 using Microsoft.AspNetCore.OData.Results;
 using Microsoft.EntityFrameworkCore;
 
-namespace Api.Repository
+namespace Api.Repositories.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
@@ -15,8 +15,8 @@ namespace Api.Repository
 
         public GenericRepository(DatabaseContext context, IMapper mapper)
         {
-            this._context = context;
-            this._mapper = mapper;
+            _context = context;
+            _mapper = mapper;
         }
 
         public async Task<T> AddAsync(T entity)
@@ -60,7 +60,7 @@ namespace Api.Repository
             return await _context.Set<T>().ToListAsync();
         }
 
-    
+
 
         public async Task<List<TResult>> GetAllAsync<TResult>()
         {
@@ -97,6 +97,6 @@ namespace Api.Repository
             await _context.SaveChangesAsync();
         }
 
- 
+
     }
 }
