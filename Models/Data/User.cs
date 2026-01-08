@@ -1,25 +1,24 @@
-﻿using Api.Models.Data;
-using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
+using System.Collections.Generic;
 
-namespace Eventei_Api.Models.Data
+namespace EventeiApi.Models.Data
 {
     public class User : IdentityUser
     {
-        [Column("full_name")]
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string FullName { get; set; }
+        public DateTime? LastLogin { get; set; }
 
-        [Column("cpf")]
-        public string Cpf { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
 
-        [Column("registered_at")]
-        public DateTime RegisteredAt { get; set; } 
-
-        [Column("last_login")]
-        public DateTime LastLogin { get; set; }
-
-        public ICollection<InscricaoEvento> Inscricoes { get; set; } = new List<InscricaoEvento>();
-        public ICollection<ComentarioEvento> Comentarios { get; set; } = new List<ComentarioEvento>();
+        public ICollection<Address> Addresses { get; set; }
+        public ICollection<Document> Documents { get; set; }
+        public ICollection<Event> OrganizedEvents { get; set; }
+        public ICollection<EventOrder> Orders { get; set; }
+        public ICollection<UserTicket> Tickets { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 }

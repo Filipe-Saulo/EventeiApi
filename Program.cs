@@ -3,7 +3,6 @@ using Api.Middleware;
 using Api.Repositories.IRepository;
 using Api.Repositories.Repository;
 using Asp.Versioning;
-using Eventei_Api.Models.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OData;
