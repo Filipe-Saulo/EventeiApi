@@ -12,12 +12,12 @@ using System.Text;
 
 namespace Api.Repositories.Repository
 {
-    public class WebUserAccountRepository : IWebUserAccountRepository
+    public class AccountRepository : IAccountRepository
     {
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
-        private readonly ILogger<WebUserAccountRepository> _logger;
+        private readonly ILogger<AccountRepository> _logger;
         private readonly DatabaseContext _context;
 
         private User _user;
@@ -25,11 +25,11 @@ namespace Api.Repositories.Repository
         private const string _loginProvider = "BikeFacilApi";
         private const string _refreshToken = "RefreshToken";
 
-        public WebUserAccountRepository(
+        public AccountRepository(
             IMapper mapper,
             UserManager<User> userManager,
             IConfiguration configuration,
-            ILogger<WebUserAccountRepository> logger,
+            ILogger<AccountRepository> logger,
             DatabaseContext context)
         {
             _mapper = mapper;

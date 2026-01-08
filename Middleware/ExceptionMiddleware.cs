@@ -1,5 +1,6 @@
 ﻿using Api.Exceptions;
-using Newtonsoft.Json;
+using Api.Util;
+using System.Text.Json;
 using System.Net;
 
 namespace Api.Middleware
@@ -19,42 +20,47 @@ namespace Api.Middleware
         {
             try
             {
-                await _next(context);
+                try
+                {
+                    await _next(context);
+                }
+                catch (BadRequestException ex)
+                {
+                    _logger.LogWarning(ex, "Erro de requisição inválida");
+                    await HandleExceptionAsync(context, HttpStatusCode.BadRequest, ex.Message);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    _logger.LogWarning(ex, "Acesso não autorizado");
+                    await HandleExceptionAsync(context, HttpStatusCode.Unauthorized, ex.Message);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    _logger.LogWarning(ex, "Recurso não encontrado");
+                    await HandleExceptionAsync(context, HttpStatusCode.NotFound, ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Erro inesperado");
+                    await HandleExceptionAsync(context, HttpStatusCode.InternalServerError, StandardMessages.Get(HttpStatusCode.InternalServerError));
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Something Went wrong while processing {context.Request.Path}");
-                await HandleExceptionAsync(context, ex);
+                await HandleExceptionAsync(context, HttpStatusCode.InternalServerError, StandardMessages.Get(HttpStatusCode.InternalServerError));
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private static async Task HandleExceptionAsync(HttpContext context, HttpStatusCode statusCode, string message)
         {
             context.Response.ContentType = "application/json";
-            HttpStatusCode statusCode = HttpStatusCode.InternalServerError;
-            var errorDetails = new ErrorDeatils
-            {
-                ErrorType = "Failure",
-                ErrorMessage = ex.Message,
-            };
-
-            switch (ex)
-            {
-                case NotFoundException notFoundException:
-                    statusCode = HttpStatusCode.NotFound;
-                    errorDetails.ErrorType = "Not Found";
-                    break;
-                case BadRequestException badRequestException:
-                    statusCode = HttpStatusCode.BadRequest;
-                    errorDetails.ErrorType = "Bad Request";
-                    break;
-                default:
-                    break;
-            }
-
-            string response = JsonConvert.SerializeObject(errorDetails);
             context.Response.StatusCode = (int)statusCode;
-            return context.Response.WriteAsync(response);
+
+            var response = new ApiResponse<string>(message);
+            var json = JsonSerializer.Serialize(response);
+
+            await context.Response.WriteAsync(json);
         }
     }
 
