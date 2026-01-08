@@ -14,10 +14,10 @@ namespace Api.Configurations
         public MapperInitializer()
         {
             CreateMap<LoginDto, User>().ReverseMap();
-            CreateMap<WebCreateUserLoginDto, User>().ReverseMap();
+            CreateMap<CreateUserDto, User>().ReverseMap();
 
-            CreateMap<EventoDto, Evento>().ReverseMap();
-            CreateMap<CreateEventoDto, Evento>()
+            CreateMap<EventoDto, Event>().ReverseMap();
+            CreateMap<CreateEventoDto, Event>()
                 .ForMember(dest => dest.Photos, opt => opt.MapFrom(src => src.Photos))
                 .ReverseMap();
 

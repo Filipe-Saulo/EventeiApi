@@ -39,7 +39,7 @@ namespace Api.Repositories.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<IdentityError>> Register(WebCreateUserLoginDto adminDto)
+        public async Task<IEnumerable<IdentityError>> Register(CreateUserDto adminDto)
         {
             var errors = new List<IdentityError>();
 

@@ -6,7 +6,7 @@ namespace Api.Repositories.IRepository
     public interface IAccountRepository
     {
         Task<AuthResponseDto> Login(LoginDto loginDto);
-        Task<IEnumerable<IdentityError>> Register(WebCreateUserLoginDto adminDto);
+        Task<IEnumerable<IdentityError>> Register(CreateUserDto adminDto);
         Task<AuthResponseDto> VerifyRefreshToken(AuthResponseDto request);
     }
 }

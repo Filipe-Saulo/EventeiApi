@@ -18,7 +18,7 @@ namespace Api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<ApiResponse<string>>> Register(WebCreateUserLoginDto adminDto)
+        public async Task<ActionResult<ApiResponse<string>>> Register(CreateUserDto adminDto)
         {
             if (adminDto == null)
                 return BadRequest(ApiResponse<string>.BadRequest(StandardMessages.NullBody));

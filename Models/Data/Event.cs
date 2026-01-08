@@ -4,7 +4,7 @@ using Eventei_Api.Models.Data;
 
 namespace Api.Models.Data
 {
-    public class Evento
+    public class Event
     {
         [Key, Column("evento_id", TypeName = "INT(11)")]
         public int EventoId { get; set; }

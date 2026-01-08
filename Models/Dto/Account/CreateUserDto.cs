@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Api.Models.Dto.WebUserLogin
 {
-    public class WebCreateUserLoginDto : LoginDto
+    public class CreateUserDto : LoginDto
     {                
         [StringLength(30, ErrorMessage = "O nome completo deve ter no maximo 30 caracteres")]
         [Required(ErrorMessage = "O primeiro nome é obrigatório.")]

@@ -18,7 +18,7 @@ namespace Api.Configurations
         {
 
         }
-        public DbSet<Evento> Evento { get; set; }
+        public DbSet<Event> Evento { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
