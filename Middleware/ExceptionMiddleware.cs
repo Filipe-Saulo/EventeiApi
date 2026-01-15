@@ -1,7 +1,7 @@
 ﻿using Api.Exceptions;
-using Api.Util;
 using System.Text.Json;
 using System.Net;
+using EventeiApi.Common;
 
 namespace Api.Middleware
 {

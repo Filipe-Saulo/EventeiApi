@@ -1,6 +1,6 @@
 ﻿using Api.Models.Dto.WebUserLogin;
 using Api.Repositories.IRepository;
-using Api.Util;
+using EventeiApi.Common;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 

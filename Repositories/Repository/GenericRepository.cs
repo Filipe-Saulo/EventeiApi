@@ -1,8 +1,8 @@
-﻿using Api.Configurations;
-using Api.Exceptions;
+﻿using Api.Exceptions;
 using Api.Repositories.IRepository;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using EventeiApi.Data.Tenant;
 using Microsoft.AspNetCore.OData.Results;
 using Microsoft.EntityFrameworkCore;
 

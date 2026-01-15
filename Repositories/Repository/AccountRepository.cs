@@ -1,8 +1,8 @@
-﻿using Api.Configurations;
-using Api.Models.Dto.WebUserLogin;
+﻿using Api.Models.Dto.WebUserLogin;
 using Api.Repositories.IRepository;
 using AutoMapper;
 using Eventei_Api.Models.Data;
+using EventeiApi.Data.Tenant;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;

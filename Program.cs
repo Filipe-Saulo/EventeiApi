@@ -1,14 +1,20 @@
-using Api.Configurations;
 using Api.Middleware;
 using Api.Repositories.IRepository;
 using Api.Repositories.Repository;
 using Asp.Versioning;
+using EventeiApi.Data.Master;
+using EventeiApi.Data.Tenant;
+using EventeiApi.Data.Tenant.Resolver;
+using EventeiApi.Mapping;
+using EventeiApi.Models.Tenant.cs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,26 +25,32 @@ try
     ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);  // Automatically detect MySQL version
     Console.WriteLine("MySQL server version detected successfully.");
 
-    builder.Services.AddDbContext<DatabaseContext>(options =>
-        options.UseMySql(connectionString, serverVersion, mysqlOptions =>
-        {
-            mysqlOptions.EnableRetryOnFailure(
-                maxRetryCount: 5, // Retry up to 5 times
-                maxRetryDelay: TimeSpan.FromSeconds(10), // Max delay between retries
-                errorNumbersToAdd: null // Specify error codes to add to the retry list
-            );
-        })
-    );
+    builder.Services.AddDbContext<MasterDbContext>(options =>
+    {
+        var conn = builder.Configuration.GetConnectionString("DefaultConnection");
+        var serverVersion = ServerVersion.AutoDetect(conn);
+        options.UseMySql(conn, serverVersion);
+    });
 }
 catch (Exception ex)
 {
     Console.WriteLine($"An error occurred while detecting the MySQL version: {ex.Message}");
     throw;
 }
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ITenantResolver, TenantResolver>();
+builder.Services.AddScoped<ITenantDbContextFactory, TenantDbContextFactory>();
+
+builder.Services.AddScoped<TenantDbContext>(provider =>
+{
+    var factory = provider.GetRequiredService<ITenantDbContextFactory>();
+    return factory.Create();
+});
+
 builder.Services.AddIdentityCore<User>()
     .AddRoles<IdentityRole>()
-    .AddTokenProvider<DataProtectorTokenProvider<User>>("EventeiApi")
-    .AddEntityFrameworkStores<DatabaseContext>()
+    .AddEntityFrameworkStores<TenantDbContext>()
     .AddDefaultTokenProviders();
 
 
@@ -104,13 +116,27 @@ apiVersioningBuilder.AddApiExplorer(
 
 builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
 
-builder.Services.AddAutoMapper(typeof(MapperInitializer));
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-builder.Services.AddScoped<IEventoRepository, EventoRepository>();
 
-builder.Services.AddAuthentication().AddJwtBearer();
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+            )
+        };
+    });
 
 builder.Services.AddResponseCaching(options =>
 {
